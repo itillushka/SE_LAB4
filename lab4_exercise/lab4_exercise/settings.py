@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'helloWorldDjango'
 ]
 
 MIDDLEWARE = [
@@ -74,11 +75,16 @@ WSGI_APPLICATION = 'lab4_exercise.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+'default': {
+'ENGINE': 'django.db.backends.postgresql',
+'NAME': 'djangoDB', # change to your database name
+'USER': 'djangoAdmin', # change to your user name
+'PASSWORD': 'admin', # change to your user password
+'HOST': 'localhost',
+'PORT': '5432', # change only if you changed the default port
 }
+}
+
 
 
 # Password validation
