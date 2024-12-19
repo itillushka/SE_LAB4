@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models import Sum
+from django.utils import timezone
 
 class Customer(models.Model):
     id = models.AutoField(primary_key=True)
@@ -9,6 +10,13 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.name:
+            raise ValidationError('Name must be specified.')
+        if not self.address:
+            raise ValidationError('Address must be specified.')
+        super().save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -22,11 +30,11 @@ class Product(models.Model):
 
     
     def save(self, *args, **kwargs):
-        if self.price <= 0:
-            raise ValidationError("Price must be a positive value.")
-        else:
-            self.clean()  
-            super().save(*args, **kwargs)
+        if self.price is None or self.price <= 0:
+            raise ValidationError('Price must be a positive number.')
+        if self.available is None:
+            raise ValidationError('Availability must be specified.')
+        super().save(*args, **kwargs)
 
 
 class Order(models.Model):
@@ -40,7 +48,7 @@ class Order(models.Model):
     id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     products = models.ManyToManyField(Product)
-    date = models.DateTimeField()
+    date = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
 
     def __str__(self):
