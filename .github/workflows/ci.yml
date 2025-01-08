@@ -20,13 +20,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m venv venv
-          venv/Scripts/activate
+          source venv/bin/activate
           pip install -r requirements.txt
           # make sure your requirements file is up to date
 
       - name: Generate API documentation
         run: |
-          venv/Scripts/activate
+          source venv/bin/activate
           python django_project/manage.py generateschema > docs.json
           # modify the paths if necessary
 
