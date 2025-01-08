@@ -9,6 +9,7 @@ from .permissions import IsAdminOrReadOnly
 
 
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
     queryset = Product.objects.all()
