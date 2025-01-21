@@ -78,7 +78,7 @@ class OrderModelTest(TestCase):
 
     def setUp(self):
         self.customer = Customer.objects.create(name='John Doe', address='123 Main St')
-        self.product1 = Product.objects.create(name='Product 1', price=10.00, available=True)
+        self.product1 = Product.objects.create(name='Product 1222', price=10.00, available=True)
         self.product2 = Product.objects.create(name='Product 2', price=20.00, available=False)
 
     def test_create_order_with_valid_data(self):
